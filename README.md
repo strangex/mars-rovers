@@ -26,7 +26,7 @@ the rover’s position, and the second line is a series of instructions
 telling the rover how to explore the plateau.
 The position is made up of two integers and a letter separated by
 spaces, corresponding to the x and y co-ordinates and the rover’s
-orientation.
+universe.orientation.
 Each rover will be finished sequentially, which means that the
 second rover won’t start to move until the first one has finished
 Moving.

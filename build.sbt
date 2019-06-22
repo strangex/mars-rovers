@@ -23,7 +23,6 @@ scalacOptions in (Compile, console) --= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.chuusai" %% "shapeless" % "2.3.3",
   "org.rogach" %% "scallop" % "3.2.0",
   "org.scalatest" %% "scalatest" % "3.0.5" % "test",
 )
