@@ -15,7 +15,7 @@ case class Rover private (
   def update(command: Command)(implicit plateau: Plateau): Rover =
     command match {
       case command: Spin => spin(command)
-      case UndefinedComamnd => this
+      case UndefinedCommand => this
       case Move          => move()
     }
 

@@ -4,7 +4,7 @@ import planet.plateau.Plateau
 
 object Axes {
 
-  class XAxis private[machinery](private val x: Int) extends AnyVal {
+  class XAxis private[machinery](val x: Int) extends AnyVal {
 
     def decrement(): XAxis = {
       val update = x - 1
@@ -21,7 +21,7 @@ object Axes {
     override def toString: String = s"$x"
   }
 
-  class YAxis private[machinery](private val y: Int) extends AnyVal {
+  class YAxis private[machinery](val y: Int) extends AnyVal {
 
     def decrement(): YAxis = {
       val update = y - 1

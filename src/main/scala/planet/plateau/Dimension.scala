@@ -2,13 +2,13 @@ package planet.plateau
 
 object Dimension {
 
-  case class Width private[plateau] (width: Int) extends AnyVal {
+  case class Width private[plateau] (w: Int) extends AnyVal {
 
-    def <(x: Int): Boolean = width < x
+    def <(x: Int): Boolean = w < x
   }
 
-  case class Height private[plateau] (height: Int) extends AnyVal {
+  case class Height private[plateau] (h: Int) extends AnyVal {
 
-    def <(y: Int): Boolean = height < y
+    def <(y: Int): Boolean = h < y
   }
 }

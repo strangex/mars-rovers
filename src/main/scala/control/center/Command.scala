@@ -8,11 +8,11 @@ object Command {
     case 'M' => Move
     case 'L' => Left
     case 'R' => Right
-    case _ => UndefinedComamnd
+    case _ => UndefinedCommand
   }
 }
 
-object UndefinedComamnd extends Command
+object UndefinedCommand extends Command
 
 object Move extends Command
 

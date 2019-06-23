@@ -30,7 +30,7 @@ object StreamUtil {
 
   def plateauDim(stream: Stream[String]): EitherT[IO, String, Plateau] = {
 
-    import planet.plateau.PlateauParser._
+    import Plateau._
 
     EitherT {
       IO {
