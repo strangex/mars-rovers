@@ -1,4 +1,4 @@
-package planet.space
+package planet.machinery.orientation
 
 sealed trait Direction {
 
@@ -6,6 +6,27 @@ sealed trait Direction {
 
   def left: Direction
 }
+
+object Direction {
+
+  private[machinery] def apply(direction: Char): Direction = direction match {
+    case 'N' => North
+    case 'W' => West
+    case 'S' => South
+    case 'E' => East
+    case _ => UndefinedDirection
+  }
+}
+
+object UndefinedDirection extends Direction {
+
+  def right: Direction = UndefinedDirection
+
+  def left: Direction = UndefinedDirection
+
+  override def toString: String = "U"
+}
+
 
 object North extends Direction {
 
