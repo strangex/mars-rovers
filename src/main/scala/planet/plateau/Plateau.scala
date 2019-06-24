@@ -1,8 +1,8 @@
 package planet.plateau
 
-import planet.plateau.Dimension._
-
 import scala.util.parsing.combinator.RegexParsers
+
+import planet.plateau.Dimension._
 
 class Plateau private[plateau] (val width: Width, val height: Height)
 

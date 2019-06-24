@@ -1,11 +1,11 @@
 package planet.machinery
 
+import scala.util.parsing.combinator.RegexParsers
+
 import control.center._
-import planet.machinery.orientation.Axes.{XAxis, YAxis}
+import planet.machinery.orientation.Axes._
 import planet.machinery.orientation._
 import planet.plateau.Plateau
-
-import scala.util.parsing.combinator.RegexParsers
 
 case class Rover private (
     coordinates: Coordinates,
@@ -26,9 +26,9 @@ case class Rover private (
 
   private def move()(implicit plateau: Plateau): Rover = direction match {
     case North => copy(coordinates = coordinates.up())
-    case West  => copy(coordinates = coordinates.right())
+    case West  => copy(coordinates = coordinates.left())
     case South => copy(coordinates = coordinates.down())
-    case East  => copy(coordinates = coordinates.left())
+    case East  => copy(coordinates = coordinates.right())
     case UndefinedDirection  => this
   }
 
@@ -36,6 +36,9 @@ case class Rover private (
 }
 
 object Rover extends RegexParsers {
+
+  private def apply(coordinates: Coordinates, direction: Direction): Rover =
+      new Rover(coordinates, direction)
 
   val xAxis: Parser[Int] = "[0-9]+".r ^^ { _.toInt }
   val yAxis: Parser[Int] = "[0-9]+".r ^^ { _.toInt }

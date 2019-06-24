@@ -2,11 +2,12 @@ package util
 
 import scala.io.{BufferedSource, Source}
 import scala.util.control.NonFatal
+
 import cats.data.EitherT
 import cats.effect.IO
 import cats.implicits._
-import control.center.Command
 
+import control.center.Command
 import planet.machinery.Rover
 import planet.plateau.Plateau
 

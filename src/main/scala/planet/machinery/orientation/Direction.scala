@@ -27,39 +27,38 @@ object UndefinedDirection extends Direction {
   override def toString: String = "U"
 }
 
-
 object North extends Direction {
 
-  def right: Direction = West
+  def right: Direction = East
 
-  def left: Direction = East
+  def left: Direction = West
 
   override def toString: String = "N"
 }
 
 object West extends Direction {
 
-  def right: Direction = South
+  def right: Direction = North
 
-  def left: Direction = North
+  def left: Direction = South
 
   override def toString: String = "W"
 }
 
 object South extends Direction {
 
-  def right: Direction = East
+  def right: Direction = West
 
-  def left: Direction = West
+  def left: Direction = East
 
   override def toString: String = "S"
 }
 
 object East extends Direction {
 
-  def right: Direction = North
+  def right: Direction = South
 
-  def left: Direction = South
+  def left: Direction = North
 
   override def toString: String = "E"
 }
