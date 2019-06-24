@@ -54,41 +54,34 @@ object StreamUtil {
   def mission(
       stream: Stream[String],
       plateau: Plateau
-  ): EitherT[IO, String, Stream[Either[String, Rover]]] = {
+  ): EitherT[IO, String, Unit] = {
 
-    import planet.machinery.Rover.{parseAll, expr, Success, NoSuccess}
+    import planet.machinery.Rover._
+
+    /** Output stream. */
+    def output(result: Parser.ParseResult[Rover], commands: List[Command]): Unit =
+      result match {
+        case Parser.Success(rover, _) =>
+          println(Rover.discover(rover, commands)(plateau))
+        case err: Parser.NoSuccess =>
+          println(s"Exception: ${err.msg}")
+      }
 
     EitherT {
       IO {
         stream
           .sliding(2, 2)
           .toStream
-          .map { task =>
+          .foreach { task =>
             val (position: String, controls: String) = (task.head, task.last)
 
             val commands = controls.map(Command(_)).toList
 
-            parseAll(expr, position) match {
-              case Success(rover, _) =>
-                Right(Rover.discover(rover, commands)(plateau))
-              case err: NoSuccess => Left(err.msg)
-            }
+            output(Parser.parseAll(position), commands)
           }
-          .asRight
-      }
-    }
-  }
-
-  /** Output stream. */
-  def output(stream: Stream[Either[String, Rover]]): EitherT[IO, String, Unit] =
-    EitherT {
-      IO {
-        stream.foreach {
-          case Left(err)    => println(err)
-          case Right(rover) => println(rover)
-        }
 
         ().asRight
       }
     }
+  }
 }

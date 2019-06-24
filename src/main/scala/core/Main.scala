@@ -16,8 +16,7 @@ object Main extends App {
       stream <- linesStream(source)
       plateau <- plateauDim(stream)
       end <- mission(stream.tail, plateau)
-      printer <- output(end)
-    } yield printer
+    } yield end
 
   val program: IO[Unit] =
     acquire(args).value.bracket { source =>

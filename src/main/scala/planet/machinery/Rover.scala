@@ -35,21 +35,27 @@ case class Rover private (
   override def toString: String = s"$coordinates $direction"
 }
 
-object Rover extends RegexParsers {
+object Rover {
 
   private def apply(coordinates: Coordinates, direction: Direction): Rover =
-      new Rover(coordinates, direction)
+    new Rover(coordinates, direction)
 
-  val xAxis: Parser[Int] = "[0-9]+".r ^^ { _.toInt }
-  val yAxis: Parser[Int] = "[0-9]+".r ^^ { _.toInt }
-  val direction: Parser[Char] = "[NWSE]".r ^^ { _.head }
+  object Parser extends RegexParsers {
 
-  def expr: Parser[Rover] = xAxis ~ yAxis ~ direction ^^ {
-    case x ~ y ~ d =>
-      Rover(
-        Coordinates(new XAxis(x), new YAxis(y)),
-        Direction(d)
-      )
+    private val xAxis: Parser[Int] = "[0-9]+".r ^^ { _.toInt }
+    private val yAxis: Parser[Int] = "[0-9]+".r ^^ { _.toInt }
+    private val direction: Parser[Char] = "[NWSE]".r ^^ { _.head }
+
+    def parseAll(position: String): ParseResult[Rover] =
+      parseAll(expr, position)
+
+    private def expr: Parser[Rover] = xAxis ~ yAxis ~ direction ^^ {
+      case x ~ y ~ d =>
+        Rover(
+          Coordinates(new XAxis(x), new YAxis(y)),
+          Direction(d)
+        )
+    }
   }
 
   def discover(rover: Rover, commands: List[Command])(

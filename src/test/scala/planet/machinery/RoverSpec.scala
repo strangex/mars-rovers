@@ -4,14 +4,14 @@ import org.scalatest.{MustMatchers, WordSpec}
 
 class RoverSpec extends WordSpec with MustMatchers {
 
-  import Rover._
+  import Rover.Parser._
   import planet.machinery.orientation.North
 
   "Rover parser" must {
 
     "succeed on a well formatted string" in {
 
-      val rover = parseAll(expr, "1 2 N")
+      val rover = parseAll("1 2 N")
 
       rover mustBe 'successful
 
@@ -29,7 +29,7 @@ class RoverSpec extends WordSpec with MustMatchers {
 
       val seq: List[String] = "5" :: "5 3 2" :: "cd e" :: Nil
 
-      all(seq.map(parseAll(expr, _))) mustNot be('successful)
+      all(seq.map(parseAll)) mustNot be('successful)
     }
   }
 }
