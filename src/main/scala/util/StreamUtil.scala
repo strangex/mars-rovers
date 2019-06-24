@@ -58,8 +58,10 @@ object StreamUtil {
 
     import planet.machinery.Rover._
 
-    /** Output stream. */
-    def output(result: Parser.ParseResult[Rover], commands: List[Command]): Unit =
+    def output(
+        result: Parser.ParseResult[Rover],
+        commands: List[Command]
+    ): Unit =
       result match {
         case Parser.Success(rover, _) =>
           println(Rover.discover(rover, commands)(plateau))

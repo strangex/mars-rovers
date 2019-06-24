@@ -1,3 +1,18 @@
+# Solution
+
+The system takes as an input a file containing the plateau's dimensions, 
+the rovers and their commands. By default, the system considers 
+[universe.dat](./universe.dat). To run the program with another file, use either : 
+```
+sbt 'run -F universe.dat'
+sbt 'run --path universe.dat'
+```
+
+The system features :
+* Resource safety.
+* Resiliency towards undefined directions/controls.
+* Rovers are still controlled even if another rover fails.
+
 # Mars Rovers
 
 A squad of robotic rovers are to be landed by NASA on a plateau on
