@@ -13,7 +13,7 @@ object Main extends App {
         (for {
           stream <- linesStream(source)
           plateau <- plateauDim(stream)
-          end <- mission(stream, plateau)
+          end <- mission(stream.tail, plateau)
           printer <- output(end)
         } yield printer).value
 
