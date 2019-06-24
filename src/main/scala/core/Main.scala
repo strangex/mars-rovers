@@ -1,30 +1,34 @@
 package core
 
+import cats.data.EitherT
 import cats.effect.IO
-import cats.implicits._
+
+import scala.io.BufferedSource
 
 object Main extends App {
 
   import util.StreamUtil._
 
-  val program: IO[Either[String, Unit]] =
-    acquire(args).value.bracket {
-      case Right(source) =>
-        (for {
-          stream <- linesStream(source)
-          plateau <- plateauDim(stream)
-          end <- mission(stream.tail, plateau)
-          printer <- output(end)
-        } yield printer).value
+  def streamGadget(
+    source: Either[String, BufferedSource]
+  ): EitherT[IO, String, Unit] =
+    for {
+      stream <- linesStream(source)
+      plateau <- plateauDim(stream)
+      end <- mission(stream.tail, plateau)
+      printer <- output(end)
+    } yield printer
 
-      case Left(error) => IO.pure(error.asLeft)
+  val program: IO[Unit] =
+    acquire(args).value.bracket { source =>
+      streamGadget(source).value.flatMap {
+        case Right(_) => IO.unit
+        case Left(error) => IO(println(s"Exception: $error"))
+      }
     } {
       case Right(source) => IO(source.close())
-      case Left(_) => IO.unit
+      case Left(_)       => IO.unit
     }
 
-  program.unsafeRunSync() match {
-    case Right(()) =>
-    case Left(error) => println(s"Exception: $error")
-  }
+  program.unsafeRunSync()
 }

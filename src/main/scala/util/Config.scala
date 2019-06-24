@@ -3,7 +3,7 @@ package util
 import org.rogach.scallop.exceptions.{Help, RequiredOptionNotFound, Version}
 import org.rogach.scallop.{ScallopConf, ScallopOption}
 
-class Config(args: Seq[String]) extends ScallopConf(args) {
+class Config private[util](args: Seq[String]) extends ScallopConf(args) {
 
   version("mars-rovers:0.0 2019")
   banner(
