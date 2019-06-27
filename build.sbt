@@ -1,4 +1,4 @@
-name := "mars"
+name := "mars-rovers"
 
 version := "0.0"
 
